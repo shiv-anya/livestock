@@ -38,7 +38,7 @@ export const Dashboard = () => {
   }, [stockSymbol]);
   return (
     <section
-      className={`md:h-[220vh] lg:h-[220vh] h-[120vh] ${
+      className={`lg:h-[120vh] md:h-[220vh] h-[120vh] ${
         darkMode ? "bg-dark" : "bg-[#f3f3f3]"
       }`}
     >
