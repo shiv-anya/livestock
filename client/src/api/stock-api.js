@@ -1,11 +1,15 @@
 import { io } from "socket.io-client";
-const socket = io("http://localhost:3001");
+
+const BASE_URL =
+  process.env.NODE_ENV === "development"
+    ? process.env.REACT_APP_LOCAL_URL
+    : process.env.REACT_APP_BACKEND_URL;
+
+const socket = io(`${BASE_URL}`);
 
 export const searchSymbol = async (query) => {
   try {
-    const response = await fetch(
-      `http://localhost:3001/symbols?ticker=${query}`
-    );
+    const response = await fetch(`${BASE_URL}/symbols?ticker=${query}`);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -15,9 +19,7 @@ export const searchSymbol = async (query) => {
 
 export const fetchStockDetails = async (stockSymbol) => {
   try {
-    const response = await fetch(
-      `http://localhost:3001/symbols/${stockSymbol}`
-    );
+    const response = await fetch(`${BASE_URL}/symbols/${stockSymbol}`);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -27,9 +29,7 @@ export const fetchStockDetails = async (stockSymbol) => {
 
 export const fetchQuote = async (stockSymbol) => {
   try {
-    const response = await fetch(
-      `http://localhost:3001/quote?ticker=${stockSymbol}`
-    );
+    const response = await fetch(`${BASE_URL}/quote?ticker=${stockSymbol}`);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -50,7 +50,7 @@ export const fetchHistoricalData = async (
 ) => {
   try {
     const response = await fetch(
-      `http://localhost:3001/history?stockSymbol=${stockSymbol}&multiplier=${multiplier}&resolution=${resolution}&from=${from}&to=${to}`
+      `${BASE_URL}/history?stockSymbol=${stockSymbol}&multiplier=${multiplier}&resolution=${resolution}&from=${from}&to=${to}`
     );
     const data = await response.json();
     return data.results;
